@@ -1,3 +1,7 @@
+* {
+    box-sizing: border-box;
+}
+
 body {
     background-color: #264653;
     font-family: Helvetica;
@@ -24,8 +28,13 @@ body {
     background-color: #bbb;
     border: 1px solid;
     border-radius: 15px;
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    font-size: 1.6em;
     grid-column: 1 / span 4;
     height: 150px;
+    padding: 18px;
 }
 
 .key {
