@@ -2,6 +2,7 @@ const operators = document.querySelectorAll('.operator');
 const operands = document.querySelectorAll('.number');
 const resultKey = document.querySelector('.result');
 let display = document.querySelector('.para');
+const clearButton = document.getElementById('clear');
 let currentNumber;
 let previousNumber;
 let currentOperator;
@@ -24,6 +25,13 @@ const operate = (num1, num2, operator) => {
         case '/':
             return divide(num1, num2);
     }
+}
+
+const clear = () => {
+    display.textContent = "";
+    currentNumber = "";
+    previousNumber = "";
+    operatorClicked = false;
 }
 
 operands.forEach(operand => operand.addEventListener('click',function(e) {
@@ -50,4 +58,6 @@ resultKey.addEventListener('click',function() {
     let result = (operate(previousNumber,currentNumber,currentOperator));
     display.textContent = result;
 })
+
+clearButton.addEventListener('click',clear);
 
