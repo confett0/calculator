@@ -34,6 +34,14 @@ const clear = () => {
     operatorClicked = false;
 }
 
+const getResult = () => {
+    currentNumber = display.textContent;
+    currentNumber = parseFloat(currentNumber);
+    previousNumber = parseFloat(previousNumber);
+    let result = (operate(previousNumber,currentNumber,currentOperator));
+    display.textContent = result;
+}
+
 operands.forEach(operand => operand.addEventListener('click',function(e) {
     let currentDigit = e.target.id;
     if (operatorClicked) {
@@ -44,6 +52,9 @@ operands.forEach(operand => operand.addEventListener('click',function(e) {
 }))
 
 operators.forEach(operator => operator.addEventListener('click',function(e) {
+    if (previousNumber) {
+        getResult();
+    }
     currentOperator = e.target.id;
     currentNumber = display.textContent;
     previousNumber = currentNumber;
@@ -51,13 +62,7 @@ operators.forEach(operator => operator.addEventListener('click',function(e) {
     operatorClicked = true;
 }))
 
-resultKey.addEventListener('click',function() {
-    currentNumber = display.textContent;
-    currentNumber = parseFloat(currentNumber);
-    previousNumber = parseFloat(previousNumber);
-    let result = (operate(previousNumber,currentNumber,currentOperator));
-    display.textContent = result;
-})
+resultKey.addEventListener('click',getResult);
 
 clearButton.addEventListener('click',clear);
 
