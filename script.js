@@ -1,32 +1,53 @@
 const operators = document.querySelectorAll('.operator');
 const operands = document.querySelectorAll('.number');
-const result = document.querySelector('.result');
-const display = document.querySelector('.display');
+const resultKey = document.querySelector('.result');
+let display = document.querySelector('.para');
+let currentNumber;
+let previousNumber;
+let currentOperator;
+let operatorClicked = false;
 
 const add = (a, b) => a + b;
 const subtract = (a, b) => a - b;
 const multiply = (a, b) => a * b;
 const divide = (a, b) => a / b;
 
+
 const operate = (num1, num2, operator) => {
     switch (operator) {
         case '+':
-            add(num1, num2);
-            break;
+            return add(num1, num2);
         case '-':
-            subtract(num1, num2);
-            break;
+            return subtract(num1, num2);
         case '*':
-            multiply(num1, num2);
-            break;
+            return multiply(num1, num2);
         case '/':
-            divide(num1, num2);
-            break;
+            return divide(num1, num2);
     }
 }
 
-operands.forEach(operand => operand.addEventListener('click',function() {
-    let currentNum = operand.value;
-    display.innerHTML = currentNum;
+operands.forEach(operand => operand.addEventListener('click',function(e) {
+    let currentDigit = e.target.id;
+    if (operatorClicked) {
+        display.textContent = "";
+        operatorClicked = false;
+    }
+    display.textContent += currentDigit;
 }))
+
+operators.forEach(operator => operator.addEventListener('click',function(e) {
+    currentOperator = e.target.id;
+    currentNumber = display.textContent;
+    previousNumber = currentNumber;
+    currentNumber = "";
+    operatorClicked = true;
+}))
+
+resultKey.addEventListener('click',function() {
+    currentNumber = display.textContent;
+    currentNumber = parseFloat(currentNumber);
+    previousNumber = parseFloat(previousNumber);
+    let result = (operate(previousNumber,currentNumber,currentOperator));
+    display.textContent = result;
+})
 
