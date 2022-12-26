@@ -59,14 +59,6 @@ body {
     background-color: #f4a261;
 }
 
-#clear {
-    
-}
-
-#del {
-
-}
-
 #result {
     background-color: #e76f51;
     grid-column: 3 / span 2;
