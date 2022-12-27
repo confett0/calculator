@@ -34,24 +34,28 @@ const clear = () => {
     currentNumber = "";
     previousNumber = "";
     operatorClicked = false;
+    equalClicked = false;
 }
 
 const getResult = () => {
     currentNumber = display.textContent;
     currentNumber = parseFloat(currentNumber);
     previousNumber = parseFloat(previousNumber);
-    display.textContent = (operate(previousNumber, currentNumber, currentOperator));
+    if (currentOperator && previousNumber) {
+        display.textContent = (operate(previousNumber, currentNumber, currentOperator));
+    }
     previousNumber = "";
 }
 
 numbers.forEach(number => number.addEventListener('click', function (e) {
     let currentDigit = e.target.id;
     if (operatorClicked) {
+        previousNumber = currentNumber;
         display.textContent = "";
         operatorClicked = false;
     }
-     display.textContent += currentDigit;
-     equalClicked = false;
+    display.textContent += currentDigit;
+    equalClicked = false;
 }))
 
 operators.forEach(operator => operator.addEventListener('click', function (e) {
@@ -62,7 +66,7 @@ operators.forEach(operator => operator.addEventListener('click', function (e) {
         getResult();
     }
     currentOperator = e.target.id;
-    previousNumber = display.textContent;
+    currentNumber = display.textContent;
     operatorClicked = true;
     equalClicked = false;
 }))
@@ -76,4 +80,3 @@ resultKey.addEventListener('click', () => {
 });
 
 clearButton.addEventListener('click', clear);
-
