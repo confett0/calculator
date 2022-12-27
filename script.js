@@ -3,18 +3,19 @@ const numbers = document.querySelectorAll('.number');
 const resultKey = document.querySelector('.result');
 let display = document.querySelector('.para');
 const clearButton = document.getElementById('clear');
+const float = document.getElementById('float');
 let currentNumber;
 let previousNumber;
 let currentOperator;
 //display.textContent = 0;
 let operatorClicked = false;
 let equalClicked = false;
+let floatClicked = false;
 
 const add = (a, b) => a + b;
 const subtract = (a, b) => a - b;
 const multiply = (a, b) => a * b;
 const divide = (a, b) => b === 0 ? display.textContent = "Error" : a / b;
-
 
 const operate = (num1, num2, operator) => {
     switch (operator) {
@@ -47,6 +48,14 @@ const getResult = () => {
     previousNumber = "";
 }
 
+float.addEventListener('click',(e) => {
+    if (floatClicked) {
+        return;
+    }
+    display.textContent += e.target.value;
+    floatClicked = true;
+});
+
 numbers.forEach(number => number.addEventListener('click', function (e) {
     let currentDigit = e.target.id;
     if (operatorClicked) {
@@ -69,6 +78,7 @@ operators.forEach(operator => operator.addEventListener('click', function (e) {
     currentNumber = display.textContent;
     operatorClicked = true;
     equalClicked = false;
+    floatClicked = false;
 }))
 
 resultKey.addEventListener('click', () => {
