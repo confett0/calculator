@@ -42,7 +42,7 @@ const getResult = () => {
     currentNumber = parseFloat(currentNumber);
     previousNumber = parseFloat(previousNumber);
     if (currentOperator && previousNumber) {
-        display.textContent = (operate(previousNumber, currentNumber, currentOperator));
+        display.textContent = (operate(previousNumber, currentNumber, currentOperator)).toFixed(10);
     }
     previousNumber = "";
 }
