@@ -36,6 +36,7 @@ const clear = () => {
     previousNumber = "";
     operatorClicked = false;
     equalClicked = false;
+    floatClicked = false;
 }
 
 const getResult = () => {
@@ -43,7 +44,7 @@ const getResult = () => {
     currentNumber = parseFloat(currentNumber);
     previousNumber = parseFloat(previousNumber);
     if (currentOperator && previousNumber) {
-        display.textContent = (operate(previousNumber, currentNumber, currentOperator)).toFixed(10);
+        display.textContent = (operate(previousNumber, currentNumber, currentOperator)).toFixed(10) * 1;
     }
     previousNumber = "";
 }
