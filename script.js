@@ -7,10 +7,10 @@ const float = document.getElementById('float');
 let currentNumber;
 let previousNumber;
 let currentOperator;
-//display.textContent = 0;
 let operatorClicked = false;
 let equalClicked = false;
 let floatClicked = false;
+display.textContent = '0';
 
 const add = (a, b) => a + b;
 const subtract = (a, b) => a - b;
@@ -30,8 +30,10 @@ const operate = (num1, num2, operator) => {
     }
 }
 
+const resetDisplay = () => display.textContent = "";
+
 const clear = () => {
-    display.textContent = "";
+    display.textContent = "0";
     currentNumber = "";
     previousNumber = "";
     operatorClicked = false;
@@ -61,8 +63,11 @@ numbers.forEach(number => number.addEventListener('click', function (e) {
     let currentDigit = e.target.id;
     if (operatorClicked) {
         previousNumber = currentNumber;
-        display.textContent = "";
+        resetDisplay();
         operatorClicked = false;
+    }
+    if (display.textContent == "0") {
+        resetDisplay();
     }
     display.textContent += currentDigit;
     equalClicked = false;
