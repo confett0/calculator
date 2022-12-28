@@ -5,6 +5,7 @@ let display = document.querySelector('.para');
 const clearButton = document.getElementById('clear');
 const float = document.getElementById('float');
 const del = document.getElementById('del');
+const negativeButton = document.getElementById('negative');
 let currentNumber;
 let previousNumber;
 let currentOperator;
@@ -43,6 +44,14 @@ const clear = () => {
 }
 
 const backspace = () => display.textContent = display.textContent.slice(0, -1);
+
+const negativeNumber = () => {
+    if (display.textContent.charAt(0) == '-') {
+        display.textContent = display.textContent.slice(1);
+    } else {
+        display.textContent = '-' + display.textContent;
+    }
+}
 
 const getResult = () => {
     currentNumber = display.textContent;
@@ -98,5 +107,6 @@ resultKey.addEventListener('click', () => {
     equalClicked = true;
 });
 
+negativeButton.addEventListener('click',negativeNumber);
 del.addEventListener('click', backspace);
 clearButton.addEventListener('click', clear);
