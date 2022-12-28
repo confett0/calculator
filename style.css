@@ -29,12 +29,19 @@ body {
     border: 1px solid;
     border-radius: 15px;
     display: flex;
-    justify-content: flex-end;
-    align-items: center;
-    font-size: 1.6em;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: flex-end;
+    font-size: 1.7em;
+    gap: 20px;
     grid-column: 1 / span 4;
     height: 150px;
     padding: 18px;
+}
+
+.operation-display {
+    font-size: 0.6em;
+    height: 40px;
 }
 
 .key {

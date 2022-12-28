@@ -2,6 +2,7 @@ const operators = document.querySelectorAll('.operator');
 const numbers = document.querySelectorAll('.number');
 const resultKey = document.querySelector('.result');
 let display = document.querySelector('.para');
+let operationDisplay = document.querySelector('.operation-display');
 const clearButton = document.getElementById('clear');
 const float = document.getElementById('float');
 const del = document.getElementById('del');
@@ -30,18 +31,19 @@ const operate = (num1, num2, operator) => {
         case '/':
             return divide(num1, num2);
     }
-}
+};
 
 const resetDisplay = () => display.textContent = "";
 
 const clear = () => {
     display.textContent = "0";
+    operationDisplay.textContent = "";
     currentNumber = "";
     previousNumber = "";
     operatorClicked = false;
     equalClicked = false;
     floatClicked = false;
-}
+};
 
 const backspace = () => display.textContent = display.textContent.slice(0, -1);
 
@@ -51,7 +53,7 @@ const negativeNumber = () => {
     } else {
         display.textContent = '-' + display.textContent;
     }
-}
+};
 
 const getResult = () => {
     currentNumber = display.textContent;
@@ -59,9 +61,10 @@ const getResult = () => {
     previousNumber = parseFloat(previousNumber);
     if (currentOperator && previousNumber) {
         display.textContent = (operate(previousNumber, currentNumber, currentOperator)).toFixed(10) * 1;
+        operationDisplay.textContent += ' ' + currentNumber + ' =';
     }
     previousNumber = "";
-}
+};
 
 float.addEventListener('click',(e) => {
     if (floatClicked) {
@@ -83,21 +86,26 @@ numbers.forEach(number => number.addEventListener('click', function (e) {
     }
     display.textContent += currentDigit;
     equalClicked = false;
-}))
+}));
 
 operators.forEach(operator => operator.addEventListener('click', function (e) {
     if (operatorClicked) {
         return;
     }
+    if (equalClicked) {
+        operationDisplay.textContent = '';
+    }
     if (previousNumber) {
         getResult();
+        operationDisplay.textContent = '';
     }
     currentOperator = e.target.id;
     currentNumber = display.textContent;
+    operationDisplay.textContent += currentNumber + ' ' + currentOperator;
     operatorClicked = true;
     equalClicked = false;
     floatClicked = false;
-}))
+}));
 
 resultKey.addEventListener('click', () => {
     if (equalClicked) {
