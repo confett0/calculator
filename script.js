@@ -4,6 +4,7 @@ const resultKey = document.querySelector('.result');
 let display = document.querySelector('.para');
 const clearButton = document.getElementById('clear');
 const float = document.getElementById('float');
+const del = document.getElementById('del');
 let currentNumber;
 let previousNumber;
 let currentOperator;
@@ -40,6 +41,8 @@ const clear = () => {
     equalClicked = false;
     floatClicked = false;
 }
+
+const backspace = () => display.textContent = display.textContent.slice(0, -1);
 
 const getResult = () => {
     currentNumber = display.textContent;
@@ -95,4 +98,5 @@ resultKey.addEventListener('click', () => {
     equalClicked = true;
 });
 
+del.addEventListener('click', backspace);
 clearButton.addEventListener('click', clear);
