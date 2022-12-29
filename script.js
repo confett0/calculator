@@ -1,12 +1,12 @@
 const operators = document.querySelectorAll('.operator');
 const numbers = document.querySelectorAll('.number');
 const resultKey = document.querySelector('.result');
-let display = document.querySelector('.para');
-let operationDisplay = document.querySelector('.operation-display');
 const clearButton = document.getElementById('clear');
 const float = document.getElementById('float');
 const del = document.getElementById('del');
 const negativeButton = document.getElementById('negative');
+let display = document.querySelector('.para');
+let operationDisplay = document.querySelector('.operation-display');
 let currentNumber;
 let previousNumber;
 let currentOperator;
@@ -66,16 +66,7 @@ const getResult = () => {
     previousNumber = "";
 };
 
-float.addEventListener('click',(e) => {
-    if (floatClicked) {
-        return;
-    }
-    display.textContent += e.target.value;
-    floatClicked = true;
-});
-
-numbers.forEach(number => number.addEventListener('click', function (e) {
-    let currentDigit = e.target.id;
+const setOperand = (currentDigit) => {
     if (operatorClicked) {
         previousNumber = currentNumber;
         resetDisplay();
@@ -86,9 +77,9 @@ numbers.forEach(number => number.addEventListener('click', function (e) {
     }
     display.textContent += currentDigit;
     equalClicked = false;
-}));
+};
 
-operators.forEach(operator => operator.addEventListener('click', function (e) {
+const setOperator = (operator) => {
     if (operatorClicked) {
         return;
     }
@@ -99,22 +90,75 @@ operators.forEach(operator => operator.addEventListener('click', function (e) {
         getResult();
         operationDisplay.textContent = '';
     }
-    currentOperator = e.target.id;
+    currentOperator = operator;
     currentNumber = display.textContent;
     operationDisplay.textContent += currentNumber + ' ' + currentOperator;
     operatorClicked = true;
     equalClicked = false;
     floatClicked = false;
-}));
+};
 
-resultKey.addEventListener('click', () => {
+const getFloatingNumbers = (value) => {
+    if (floatClicked) {
+        return;
+    }
+    display.textContent += value;
+    floatClicked = true;
+};
+
+const resultButton = () => { // disables result key after getting the risult
     if (equalClicked) {
         return;
     }
     getResult();
     equalClicked = true;
-});
+};
 
-negativeButton.addEventListener('click',negativeNumber);
+// Event listeners
+
+numbers.forEach(number => number.addEventListener('click', (e) => setOperand(e.target.id)));
+operators.forEach(operator => operator.addEventListener('click', (e) => setOperator(e.target.id)));float.addEventListener('click', (e) => getFloatingNumbers(e.target.value));
+resultKey.addEventListener('click', resultButton);
+negativeButton.addEventListener('click', negativeNumber);
 del.addEventListener('click', backspace);
 clearButton.addEventListener('click', clear);
+
+// Keyboard support
+
+window.addEventListener('keydown', function (e) {
+    switch (e.key) {
+        case '1':
+        case '2':
+        case '3':
+        case '4':
+        case '5':
+        case '6':
+        case '7':
+        case '8':
+        case '9':
+        case '0':
+            setOperand(e.key);
+            break;
+        case '+':
+        case '-':
+        case '*':
+        case '/':
+            setOperator(e.key);
+            break;
+        case '=':
+        case 'Enter':
+            resultButton();
+            break;
+        case 'Backspace':
+            backspace();
+            break;
+        case 'c':
+            clear();
+            break;
+        case '.':
+            getFloatingNumbers(e.key);
+            break;
+        default:
+            return;
+    }
+});
