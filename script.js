@@ -75,6 +75,9 @@ const setOperand = (currentDigit) => {
     if (display.textContent == "0") {
         resetDisplay();
     }
+    if (display.textContent.length > 12) {
+        return;
+    }
     display.textContent += currentDigit;
     equalClicked = false;
 };
