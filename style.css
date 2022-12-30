@@ -6,7 +6,7 @@ body {
     background-color: #264653;
     font-family: Helvetica;
     font-size: 1.2em;
-    max-width: 1200px;
+    max-width: 100vw;
 }
 
 .calculator {
@@ -71,3 +71,4 @@ body {
     background-color: #e76f51;
     grid-column: 3 / span 2;
 }
+

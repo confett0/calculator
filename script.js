@@ -5,7 +5,7 @@ const clearButton = document.getElementById('clear');
 const float = document.getElementById('float');
 const del = document.getElementById('del');
 const negativeButton = document.getElementById('negative');
-let display = document.querySelector('.para');
+let display = document.querySelector('.main-display');
 let operationDisplay = document.querySelector('.operation-display');
 let currentNumber;
 let previousNumber;
@@ -106,7 +106,7 @@ const getFloatingNumbers = (value) => {
     floatClicked = true;
 };
 
-const resultButton = () => { // disables result key after getting the risult
+const pressResultButton = () => { // disables result key after getting the risult
     if (equalClicked) {
         return;
     }
@@ -116,9 +116,10 @@ const resultButton = () => { // disables result key after getting the risult
 
 // Event listeners
 
-numbers.forEach(number => number.addEventListener('click', (e) => setOperand(e.target.id)));
-operators.forEach(operator => operator.addEventListener('click', (e) => setOperator(e.target.id)));float.addEventListener('click', (e) => getFloatingNumbers(e.target.value));
-resultKey.addEventListener('click', resultButton);
+numbers.forEach(number => number.addEventListener('click', (e) => setOperand(e.target.value)));
+operators.forEach(operator => operator.addEventListener('click', (e) => setOperator(e.target.value)));
+float.addEventListener('click', (e) => getFloatingNumbers(e.target.value));
+resultKey.addEventListener('click', pressResultButton);
 negativeButton.addEventListener('click', negativeNumber);
 del.addEventListener('click', backspace);
 clearButton.addEventListener('click', clear);
@@ -147,12 +148,13 @@ window.addEventListener('keydown', function (e) {
             break;
         case '=':
         case 'Enter':
-            resultButton();
+            pressResultButton();
             break;
         case 'Backspace':
             backspace();
             break;
         case 'c':
+        case'Escape':
             clear();
             break;
         case '.':
