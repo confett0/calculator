@@ -4,9 +4,13 @@
 
 body {
     background-color: #264653;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
     font-family: Helvetica;
     font-size: 1.2em;
     max-width: 100vw;
+    min-height: 100vh;
 }
 
 .calculator {
@@ -72,3 +76,14 @@ body {
     grid-column: 3 / span 2;
 }
 
+footer {
+    color: #fff;
+    font-size: 0.9em;
+    text-align: center;
+}
+
+@media screen and (max-width: 450px) {
+    .calculator {
+        width: 90%;
+    }
+}
